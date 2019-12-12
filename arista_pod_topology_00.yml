@@ -1,0 +1,40 @@
+VERSION: 2
+CEOS_IMAGE: ceosimage:4.23.1F
+PUBLISH_BASE: 9000
+driver: veth
+
+links:
+
+# WAN & Border Leaf
+  - endpoints: ["WAN-1-A:eth0", "WAN-1-B:eth0"]
+  - endpoints: ["WAN-1-A:eth1", "Edge-1:eth0"]
+  - endpoints: ["WAN-1-B:eth1", "Edge-1:eth1"]
+  - endpoints: ["WAN-1-A:eth2", "Edge-2:eth0"]
+  - endpoints: ["WAN-1-B:eth2", "Edge-2:eth1"]
+  - endpoints: ["WAN-2:eth0", "Edge-1:eth2"]
+  - endpoints: ["WAN-2:eth1", "Edge-2:eth2"]
+
+# Border Leaf & Spine
+  - endpoints: ["Edge-1:eth3", "Edge-2:eth3"]
+  - endpoints: ["Edge-1:eth4", "Spine-1:eth0"]
+  - endpoints: ["Edge-1:eth5", "Spine-2:eth0"]
+  - endpoints: ["Edge-2:eth4", "Spine-1:eth1"]
+  - endpoints: ["Edge-2:eth5", "Spine-2:eth1"]
+
+# Spine & Leaf
+  - endpoints: ["Spine-1:eth2", "Leaf-1-A:eth0"]
+  - endpoints: ["Spine-1:eth3", "Leaf-1-B:eth0"]
+  - endpoints: ["Spine-2:eth2", "Leaf-1-A:eth1"]
+  - endpoints: ["Spine-2:eth3", "Leaf-1-B:eth1"]
+  - endpoints: ["Leaf-1-A:eth2", "Leaf-1-B:eth2"]
+  - endpoints: ["Spine-1:eth4", "Leaf-2-A:eth0"]
+  - endpoints: ["Spine-1:eth5", "Leaf-2-B:eth0"]
+  - endpoints: ["Spine-2:eth4", "Leaf-2-A:eth1"]
+  - endpoints: ["Spine-2:eth5", "Leaf-2-B:eth1"]
+  - endpoints: ["Leaf-2-A:eth2", "Leaf-2-B:eth2"]
+
+#  Leaf && Compute / Storage
+  - endpoints: ["Leaf-1-A:eth3", "host1:eth0"]
+  - endpoints: ["Leaf-1-B:eth3", "host1:eth1"]
+  - endpoints: ["Leaf-2-A:eth3", "host2:eth0"]
+  - endpoints: ["Leaf-2-B:eth3", "host2:eth1"]
